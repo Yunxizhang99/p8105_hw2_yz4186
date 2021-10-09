@@ -153,7 +153,7 @@ unemp_df
 
 ## Join the datasets by merging snp into pols, and merging unemployment into the result.
 
-```{r}
+```{r, message = FALSE}
 prob2_df <- 
   left_join(pols_df, snp_df, by = c("year", "month")) %>%
   left_join(unemp_df, by = c("year", "month"))
@@ -198,7 +198,7 @@ names_df <- read_csv("./data/Popular_Baby_Names.csv") %>%
 
 ## Produce a well-structured, reader-friendly table showing the rank in popularity of the name “Olivia” as a female baby name over time; this should have rows for ethnicities and columns for year. Produce a similar table showing the most popular name among male children over time.
 
-```{r}
+```{r, message=FALSE}
 ## Showing the rank in popularity of the name "Olivia" as a female baby name over time
 
 female_names_df =
@@ -219,7 +219,7 @@ female_names_df %>%
 female_names_df
 ```
 
-```{r}
+```{r, message = FALSE}
 
 ## Showing the rank in popularity of the name as a male baby name over time 
 
@@ -236,7 +236,7 @@ male_names_df
 
 ## Finally, for male, white non-hispanic children born in 2016, produce a scatter plot showing the number of children with a name (y axis) against the rank in popularity of that name (x axis).
 
-```{r}
+```{r, message = FALSE}
 plt_df <- names_df %>%
   filter(gender == "MALE" &
            ethnicity == "WHITE NON HISPANIC" &
