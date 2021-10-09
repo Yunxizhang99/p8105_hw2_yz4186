@@ -103,10 +103,12 @@ pols_df =
   mutate(month = month.name[as.integer(month)],
          year = as.integer(year),
          day = as.integer(day)) %>% 
+         mutate(president = ifelse(prez_dem ==1, "dem", "gop"))%>%
+  select(-day, -prez_gop, -prez_dem)
          
-  select(-day, -prez_dem, -prez_gop)
+         
 
-pols_df
+
 
 ```
 
@@ -168,7 +170,7 @@ The snp dataset has `r ncol(snp_df)` variables and `r nrow(snp_df)` observations
 
 The unemployment dataset has `r ncol(unemp_df)` variables and `r nrow(unemp_df)` observations. It contains unemployment rate at time ranging from `r min(pull(unemp_df, year))` to `r max(pull(unemp_df, year))` with variables including  `r names(unemp_df)`.
 
-The final dataset is merged by the 3 datasets above, which has `r ncol(prob2_df)` variables and `r nrow(prob2_df)` observations, containing the number of national politicians who are democratic or republican, S&P, and unemployment rate at time ranging from `r min(pull(prob2_df, year))` to `r max(pull(prob2_df, year))`.The variables in the dataset are:  `r names(prob2_df)`.
+The prob2 dataset is merged by the previous 3 datasets which has `r ncol(prob2_df)` variables and `r nrow(prob2_df)` observations. It  contains the number of national politicians who are democratic or republican, S&P, and unemployment rate at time ranging from `r min(pull(prob2_df, year))` to `r max(pull(prob2_df, year))`.The key variables including "year", "prez_gop" and "prez_dem".
 
 
 ## Problem 3
@@ -210,8 +212,8 @@ female_names_df =
   
 female_names_df %>%
   pivot_wider(
-    names_from = "ethnicity",
-    values_from = "year_of_birth"     
+    names_from = ethnicity,
+    values_from = c(year_of_birth,gender,count) 
   ) 
 
 female_names_df
